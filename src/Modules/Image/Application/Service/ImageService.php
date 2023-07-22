@@ -33,14 +33,6 @@ class ImageService
         ?int $height = null,
         ?int $width = null
     ): FileData {
-        if (!$height && !$width) {
-            throw new \Exception('Height or width must be provided');
-        }
-
-        if (!file_exists(FileHelper::getPath($fileName))) {
-            throw new Exception('File does not exist');
-        }
-
         $fileNameParts = explode('.', $fileName);
         $extension = $fileNameParts[1] ?? throw new Exception('Invalid file name');
 
@@ -57,14 +49,6 @@ class ImageService
         ?int $height = null,
         ?int $width = null,
     ): FileData {
-        if (!$height && !$width) {
-            throw new \Exception('Height or width must be provided');
-        }
-
-        if (!file_exists(FileHelper::getPath($fileName))) {
-            throw new Exception();
-        }
-
         $fileNameParts = explode('.', $fileName);
         $extension = $fileNameParts[1] ?? throw new Exception('Invalid file name');
 

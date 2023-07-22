@@ -35,15 +35,10 @@ class RasterProcessor extends BaseImageProcessor implements ImageProcessorInterf
      */
     public function crop(string $fileName, string $newFileName, ?int $height = null, ?int $width = null): void
     {
-        if (!$height && !$width) {
-            throw new \Exception('Height or width must be provided');
-        }
+        $this->validateHeightAndWidth($height, $width);
+        $this->validateFile($fileName);
 
         $path = FileHelper::getPath($fileName);
-        if (!file_exists($path)) {
-            throw new \Exception('File not found');
-        }
-
         $image = new \Imagick($path);
 
         $height = $height ?? $image->getImageHeight();
@@ -60,15 +55,10 @@ class RasterProcessor extends BaseImageProcessor implements ImageProcessorInterf
      */
     public function resize(string $fileName, string $newFileName, ?int $height = null, ?int $width = null): void
     {
-        if (!$height && !$width) {
-            throw new \Exception('Height or width must be provided');
-        }
+        $this->validateHeightAndWidth($height, $width);
+        $this->validateFile($fileName);
 
         $path = FileHelper::getPath($fileName);
-        if (!file_exists($path)) {
-            throw new \Exception('File not found');
-        }
-
         $image = new \Imagick($path);
 
         $height = $height ?? $image->getImageHeight();

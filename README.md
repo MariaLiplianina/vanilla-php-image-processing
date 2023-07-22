@@ -30,7 +30,13 @@ Two modifiers are implemented:
 
 ### Existing endpoints
 
-Get modified image:
+* Get modified image:
 ```
 curl -X GET --location "http://localhost/{imageName}?action={action}&height={height}&width={width}" 
 ```
+
+Field | Type | Values       |
+--- | --- |--------------| 
+action | string | crop, resize |
+height | int  | >0           |
+width | int  | >0           |

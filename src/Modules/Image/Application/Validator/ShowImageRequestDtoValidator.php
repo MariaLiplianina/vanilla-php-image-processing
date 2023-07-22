@@ -18,8 +18,16 @@ class ShowImageRequestDtoValidator
             throw new \InvalidArgumentException('Unknown action');
         }
 
-        if ($dto->action && !$dto->height && !$dto->width) {
+        if ($dto->action && !isset($dto->height) && !isset($dto->width)) {
             throw new \InvalidArgumentException('Height or width must be provided');
+        }
+
+        if ($dto->action && isset($dto->height) && $dto->height <= 0) {
+            throw new \InvalidArgumentException('Invalid height');
+        }
+
+        if ($dto->action && isset($dto->width) && $dto->width <= 0) {
+            throw new \InvalidArgumentException('Invalid width');
         }
     }
 }
