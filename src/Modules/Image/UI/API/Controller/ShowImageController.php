@@ -8,12 +8,14 @@ use App\Modules\Image\Application\Service\ImageService;
 use App\Modules\Image\Application\Validator\ShowImageRequestDtoValidator;
 use App\Modules\Image\Domain\ImageModifications;
 use App\Modules\Image\UI\API\Controller\Dto\ShowImageRequestDto;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class ShowImageController extends BaseController
 {
     public function __construct(
         private readonly ImageService $imageService,
         private readonly ShowImageRequestDtoValidator $validator,
+        private readonly UrlGenerator $urlGenerator,
     ) {
     }
 
@@ -33,7 +35,11 @@ class ShowImageController extends BaseController
                     $fileData = $this->imageService->resize($fileName, $dto->height, $dto->width);
                 }
 
-                return $fileData->content;
+                $url = $this->urlGenerator->generate('image_show', [
+                    'name' => $fileData->fileName,
+                ]);
+
+                header('Location: ' . $url);
             }
 
             $fileData = $this->imageService->get($fileName);

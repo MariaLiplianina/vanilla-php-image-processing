@@ -10,12 +10,23 @@ This repository implements Clean architecture (Domain, Application, Infrastructu
 
 The project is dockerized and configured to work with docker compose
 - `docker compose up -d`
-- `docker compose exec php-fpm sh composer install` 
+- `docker compose exec -T -u www-data -e XDEBUG_MODE=off php-fpm composer install` 
 
 #### Other commands:
 
 Run tests
-- `docker compose exec php-fpm	./vendor/bin/phpunit`
+- `docker compose exec -T -u www-data -e XDEBUG_MODE=off php-fpm ./vendor/bin/phpunit`
+
+### Business rules
+
+A small image service which can deliver images using a GET request and which are stored on the server. It is possible to use different modifiers to change what will be returned. 
+Two modifiers are implemented:
+
+- crop-modifier (will cut the image and will take height and width as parameters)
+- resize-modifier (resizes the images based on given height and width as parameters)
+
+* Supported raster image formats: 'jpg', 'jpeg', 'png', 'gif', 'tiff', 'webp'
+* Supported vector image formats: 'svg' - resize only
 
 ### Existing endpoints
 
